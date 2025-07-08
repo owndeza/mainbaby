@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Биография — Jetsify Style</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #121212;
+      color: #e0e0e0;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s forwards;
+    }
+
+    .fade-in.delay-1 {
+      animation-delay: 0.2s;
+    }
+
+    .fade-in.delay-2 {
+      animation-delay: 0.4s;
+    }
+
+    .fade-in.delay-3 {
+      animation-delay: 0.6s;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card {
+      background: #1e1e1e;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(255, 0, 145, 0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(255, 0, 145, 0.3);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Шапка -->
+  <header class="bg-[#121212]/90 backdrop-blur-sm sticky top-0 z-50 p-6 shadow-lg">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <h1 class="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent select-none">
+        Биография Baby Toxic
+      </h1>
+      <p class="text-gray-400 text-sm">created @owndeza</p>
+    </div>
+  </header>
+
+  <!-- Главный блок -->
+  <main class="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+
+    <!-- Левая колонка -->
+    <div class="space-y-8 fade-in delay-1">
+      <section class="card">
+        <h2 class="text-2xl font-semibold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent mb-2">Обо мне</h2>
+        <p class="text-gray-300 text-lg leading-relaxed">
+          Я - законопослушный гражданин Российской федерации. Никогда не делал, не делаю и не собираюсь делать что то противоречащее закону РФ.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2 class="text-2xl font-semibold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent mb-2">Дефы</h2>
+        <p class="text-gray-300 text-lg leading-relaxed">
+          - @Eisisndnend<br />
+          - @Ybit_Za_NaRkoTyO
+        </p>
+      </section>
+
+      <section class="card">
+        <h2 class="text-2xl font-semibold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent mb-2">Друзья</h2>
+        <p class="text-gray-300 text-lg leading-relaxed">
+@radeonovv<br />
+@Kaprizovich_official<br />
+@sirexx1337<br />
+@attackShiryaev<br />
+@killdeza<br />
+@fuckopiumov<br />
+@feofilov_gangbang
+        </p>
+      </section>
+    </div>
+
+    <!-- Правая колонка -->
+    <div class="space-y-8 fade-in delay-2">
+      <section class="card">
+        <h2 class="text-2xl font-semibold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent mb-2">Касты</h2>
+        <p class="text-gray-300 text-lg leading-relaxed">
+          - Доксинг<br />
+          - Снос<br />
+          - Сват
+        </p>
+      </section>
+
+      <section class="card">
+        <h2 class="text-2xl font-semibold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent mb-2">Контакты</h2>
+        <p class="text-gray-300 text-lg leading-relaxed">
+          Telegram: @Soso_dura
+        </p>
+      </section>
+
+      <section class="card">
+        <h2 class="text-2xl font-semibold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent mb-2">Клан</h2>
+        <p class="text-gray-300 text-lg leading-relaxed">
+          #крах
+        </p>
+      </section>
+    </div>
+
+  </main>
+
+  <main class="px-6 py-10">
+    <div class="card mx-auto max-w-lg">
+      <h2 class="text-2xl font-semibold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent mb-2">Прайс</h2>
+      <p class="text-gray-300">
+Деф<br />
+День: 25 звезд<br />
+3 дня:125 звезд<br />
+Неделю: 200 звезд<br />
+Месяц: 400 звезд<br />
+Навсегда: 1000 звезд
+      </p>
+    </div>
+  </main>
+
+
+</body>
+</html>
