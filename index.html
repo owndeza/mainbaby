@@ -1,674 +1,519 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DFHub TestStand</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    * {
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jetsify</title>
+    <style>
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #1e1f22;
-            color: #ffffff;
-            line-height: 1.5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #302f2c;
+            color: #efede3;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        :root {
-            --jb-primary: #1e1f22;
-            --jb-secondary: #2b2d30;
-            --jb-accent: #3574f0;
-            --jb-accent-hover: #4a7aff;
-            --jb-text-primary: #ffffff;
-            --jb-text-secondary: #b8bdc6;
-            --jb-border: #393b40;
-            --jb-purple: #9873ff;
-            --jb-orange: #ff6b35;
-            --jb-green: #07c160;
-            --jb-yellow: #f4af3d;
-            --jb-red: #ff6b6b;
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            opacity: 0.15;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: #302f2c;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(239, 237, 227, 0.1);
         }
 
         nav {
-            background: var(--jb-primary);
-            border-bottom: 1px solid var(--jb-border);
-            padding: 0;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-        }
-
-        .nav-container {
-            max-width: 1280px;
-            margin: 0 auto;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            height: 64px;
-            padding: 0 24px;
         }
 
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: var(--jb-text-primary);
+            font-size: 2rem;
+            font-weight: bold;
+            color: #efede3;
             text-decoration: none;
-            font-size: 20px;
-            font-weight: 600;
+            transition: all 0.3s ease;
         }
 
-        .logo-icon {
-            width: 32px;
-            height: 32px;
-            background: linear-gradient(135deg, var(--jb-accent), var(--jb-purple));
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
+        .logo:hover {
+            transform: scale(1.05);
         }
 
         .nav-links {
             display: flex;
-            margin-left: 48px;
-            gap: 32px;
+            list-style: none;
+            gap: 2rem;
         }
 
         .nav-links a {
-            color: var(--jb-text-secondary);
+            color: #efede3;
             text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            padding: 8px 16px;
-            border-radius: 6px;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
         }
 
         .nav-links a:hover {
-            color: var(--jb-text-primary);
-            background: var(--jb-secondary);
+            background-color: #efede3;
+            color: #302f2c;
+            transform: translateY(-2px);
         }
 
-        .nav-cta {
-            margin-left: auto;
-            display: flex;
-            gap: 12px;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 500;
-            text-decoration: none;
-            cursor: pointer;
-            transition: all 0.2s ease;
+        .cart-btn {
+            background-color: #efede3;
+            color: #302f2c;
+            padding: 0.75rem 1.5rem;
             border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
         }
 
-        .btn-primary {
-            background: var(--jb-accent);
-            color: white;
+        .cart-btn:hover {
+            transform: translateY(-3px);
+            background-color: #f5f3eb;
         }
 
-        .btn-primary:hover {
-            background: var(--jb-accent-hover);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--jb-text-secondary);
-            border: 1px solid var(--jb-border);
-        }
-
-        .btn-secondary:hover {
-            background: var(--jb-secondary);
-            color: var(--jb-text-primary);
-        }
-      
         .hero {
-            padding: 120px 24px 80px;
-            max-width: 1280px;
-            margin: 0 auto;
+            background-color: #302f2c;
+            padding: 4rem 0;
             text-align: center;
+            position: relative;
         }
 
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--jb-secondary);
-            border: 1px solid var(--jb-border);
-            border-radius: 20px;
-            padding: 6px 16px;
-            font-size: 13px;
-            color: var(--jb-text-secondary);
-            margin-bottom: 32px;
-        }
-
-        .hero-badge .badge-icon {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--jb-green);
+        .hero-content {
+            position: relative;
+            z-index: 2;
         }
 
         .hero h1 {
-            font-size: 56px;
-            font-weight: 700;
-            line-height: 1.1;
-            margin-bottom: 24px;
-            background: linear-gradient(135deg, var(--jb-text-primary), var(--jb-accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: #efede3;
         }
 
-        .hero-subtitle {
-            font-size: 20px;
-            color: var(--jb-text-secondary);
-            margin-bottom: 40px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
         }
 
-        .hero-actions {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 64px;
+        .cta-btn {
+            background-color: #efede3;
+            color: #302f2c;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .hero-actions .btn {
-            padding: 12px 24px;
-            font-size: 16px;
-        }
-      
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 32px;
-            margin-top: 64px;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 24px;
-            background: var(--jb-secondary);
-            border: 1px solid var(--jb-border);
-            border-radius: 8px;
-        }
-
-        .stat-number {
-            font-size: 32px;
-            font-weight: 700;
-            color: var(--jb-accent);
-            display: block;
-        }
-
-        .stat-label {
-            color: var(--jb-text-secondary);
-            font-size: 14px;
-            margin-top: 8px;
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            background-color: #f5f3eb;
         }
 
         .products {
-            padding: 120px 24px;
-            max-width: 1280px;
-            margin: 0 auto;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 64px;
+            padding: 4rem 0;
+            background-color: #302f2c;
         }
 
         .section-title {
-            font-size: 40px;
-            font-weight: 700;
-            margin-bottom: 16px;
-            color: var(--jb-text-primary);
-        }
-
-        .section-subtitle {
-            font-size: 18px;
-            color: var(--jb-text-secondary);
-            max-width: 600px;
-            margin: 0 auto;
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #efede3;
         }
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
         }
 
         .product-card {
-            background: var(--jb-secondary);
-            border: 1px solid var(--jb-border);
-            border-radius: 12px;
-            padding: 32px;
-            transition: all 0.2s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .product-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--jb-accent), var(--jb-purple));
-            opacity: 0;
-            transition: opacity 0.2s ease;
+            background: linear-gradient(145deg, #3d3a36, #2a2926);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(239, 237, 227, 0.1);
         }
 
         .product-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--jb-accent);
-            box-shadow: 0 8px 32px rgba(53, 116, 240, 0.12);
+            transform: translateY(-10px);
+            border-color: rgba(239, 237, 227, 0.3);
         }
 
-        .product-card:hover::before {
-            opacity: 1;
-        }
-
-        .product-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 8px;
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background-color: #efede3;
+            border-radius: 10px;
+            margin-bottom: 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 20px;
-            font-size: 24px;
+            font-size: 3rem;
+            color: #302f2c;
         }
-
-        .product-icon.security { background: linear-gradient(135deg, var(--jb-red), #ff4757); }
-        .product-icon.privacy { background: linear-gradient(135deg, var(--jb-purple), #8742ff); }
-        .product-icon.communications { background: linear-gradient(135deg, var(--jb-green), #00d68f); }
-        .product-icon.audit { background: linear-gradient(135deg, var(--jb-orange), #ff9500); }
-        .product-icon.storage { background: linear-gradient(135deg, var(--jb-accent), var(--jb-purple)); }
-        .product-icon.education { background: linear-gradient(135deg, var(--jb-yellow), #f39c12); }
 
         .product-title {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: var(--jb-text-primary);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #efede3;
         }
 
-        .product-description {
-            color: var(--jb-text-secondary);
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .product-features {
-            list-style: none;
-            margin-bottom: 24px;
-        }
-
-        .product-features li {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--jb-text-secondary);
-            font-size: 14px;
-            margin-bottom: 8px;
-        }
-
-        .product-features li::before {
-            content: '✓';
-            color: var(--jb-green);
+        .product-price {
+            font-size: 1.5rem;
             font-weight: bold;
+            color: #efede3;
+            margin-bottom: 1rem;
         }
 
-        .about {
-            background: var(--jb-primary);
-            border-top: 1px solid var(--jb-border);
-            border-bottom: 1px solid var(--jb-border);
-            padding: 120px 24px;
-        }
-
-        .about-container {
-            max-width: 1280px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: center;
-        }
-
-        .about-content h2 {
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 24px;
-            color: var(--jb-text-primary);
-        }
-
-        .about-content p {
-            color: var(--jb-text-secondary);
-            font-size: 16px;
-            line-height: 1.6;
-            margin-bottom: 24px;
-        }
-
-        .founder-card {
-            background: var(--jb-secondary);
-            border: 1px solid var(--jb-border);
-            border-radius: 12px;
-            padding: 32px;
-            text-align: center;
-        }
-
-        .founder-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--jb-accent), var(--jb-purple));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 32px;
-            font-weight: bold;
-            color: white;
-            overflow: hidden;
-        }
-
-        .founder-avatar img {
+        .buy-btn {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
+            background-color: #efede3;
+            color: #302f2c;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
         }
 
-        .founder-name {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--jb-text-primary);
-        }
-
-        .founder-role {
-            color: var(--jb-text-secondary);
-            margin-bottom: 16px;
-        }
-
-        .contact {
-            padding: 120px 24px;
-            max-width: 1280px;
-            margin: 0 auto;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
-            margin-top: 48px;
-        }
-
-        .contact-card {
-            background: var(--jb-secondary);
-            border: 1px solid var(--jb-border);
-            border-radius: 12px;
-            padding: 32px;
-            text-align: center;
-            transition: all 0.2s ease;
-        }
-
-        .contact-card:hover {
-            border-color: var(--jb-accent);
+        .buy-btn:hover {
+            background-color: #f5f3eb;
             transform: translateY(-2px);
         }
 
-        .contact-icon {
-            width: 56px;
-            height: 56px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 28px;
+        .categories {
+            padding: 3rem 0;
+            background-color: #302f2c;
         }
 
-        .contact-icon.email { background: linear-gradient(135deg, var(--jb-accent), var(--jb-purple)); }
-        .contact-icon.secure { background: linear-gradient(135deg, var(--jb-green), #00d68f); }
-        .contact-icon.support { background: linear-gradient(135deg, var(--jb-orange), #ff9500); }
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .category-card {
+            background-color: #efede3;
+            color: #302f2c;
+            padding: 2rem 1rem;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px) scale(1.05);
+            background-color: #f5f3eb;
+        }
+
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
 
         footer {
-            background: var(--jb-primary);
-            border-top: 1px solid var(--jb-border);
-            padding: 64px 24px 32px;
-        }
-
-        .footer-container {
-            max-width: 1280px;
-            margin: 0 auto;
+            background-color: #1f1e1c;
+            padding: 3rem 0 1rem;
             text-align: center;
         }
 
-        .footer-logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 24px;
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
         }
 
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 32px;
-            margin-bottom: 32px;
-            flex-wrap: wrap;
+        .footer-section h3 {
+            color: #efede3;
+            margin-bottom: 1rem;
         }
 
-        .footer-links a {
-            color: var(--jb-text-secondary);
+        .footer-section a {
+            color: #efede3;
             text-decoration: none;
-            font-size: 14px;
-            transition: color 0.2s ease;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
         }
 
-        .footer-links a:hover {
-            color: var(--jb-text-primary);
+        .footer-section a:hover {
+            color: #f5f3eb;
         }
 
         .footer-bottom {
-            padding-top: 32px;
-            border-top: 1px solid var(--jb-border);
-            color: var(--jb-text-secondary);
-            font-size: 14px;
+            border-top: 1px solid #3d3a36;
+            padding-top: 1rem;
+            color: #efede3;
+            opacity: 0.8;
         }
 
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
             }
-
+            
             .hero h1 {
-                font-size: 36px;
+                font-size: 2.5rem;
             }
-
-            .about-container {
+            
+            .products-grid {
                 grid-template-columns: 1fr;
-                gap: 48px;
-            }
-
-            .stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .hero-actions {
-                flex-direction: column;
-                align-items: center;
             }
         }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate {
-            animation: fadeInUp 0.6s ease-out;
-        }
-  </style>
+    </style>
 </head>
 <body>
+    <svg class="background-animation" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" >
+        <defs>
+            <linearGradient id="vortex-gradient" gradientTransform="rotate(0.5)">
+                <stop offset="0.15" stop-color="#efede3"/>
+                <stop offset="0.67" stop-color="#d4d1c7" stop-opacity="0.9"/>
+                <stop offset="1" stop-color="#b8b5ab" stop-opacity="0.8"/>
+                <animateTransform attributeName="gradientTransform" type="rotate" values="0 0.5 0.5; -360 0.5 0.5;" dur="120s" repeatCount="indefinite"/>
+            </linearGradient>
+        </defs>
+        <g transform="translate(-10 230)">
+            <rect x="748" y="363.5" width="120" height="120" rx="24" ry="24" fill="url(#vortex-gradient)" fill-opacity="0.24"
+                  transform="rotate(-439) scale(6.8)" transform-origin="805px 455.5px">
+                <animateTransform attributeName="transform" type="rotate"
+                                  values="0 3 -32;360 3 -32;" dur="120s"
+                                  repeatCount="indefinite" additive="sum"/>
+            </rect>
+            <rect x="748" y="363.5" width="120" height="120" rx="24" ry="24" fill="url(#vortex-gradient)" fill-opacity="0.32"
+                  transform="rotate(-373) scale(5.2)" transform-origin="805px 455.5px">
+                <animateTransform attributeName="transform" type="rotate"
+                                  values="0 3 -32;360 3 -32;" dur="120s"
+                                  repeatCount="indefinite" additive="sum"/>
+            </rect>
+            <rect x="748" y="363.5" width="120" height="120" rx="24" ry="24" fill="url(#vortex-gradient)" fill-opacity="0.48"
+                  transform="rotate(-340) scale(4.44)" transform-origin="805px 455.5px">
+                <animateTransform attributeName="transform" type="rotate"
+                                  values="0 3 -32;360 3 -32;" dur="120s"
+                                  repeatCount="indefinite" additive="sum"/>
+            </rect>
+            <rect x="748" y="363.5" width="120" height="120" rx="24" ry="24" fill="url(#vortex-gradient)" fill-opacity="0.64"
+                  transform="rotate(-307) scale(3.76)" transform-origin="805px 455.5px">
+                <animateTransform attributeName="transform" type="rotate"
+                                  values="0 3 -32;360 3 -32;" dur="120s"
+                                  repeatCount="indefinite" additive="sum"/>
+            </rect>
+            <rect x="748" y="363.5" width="120" height="120" rx="24" ry="24" fill="url(#vortex-gradient)" fill-opacity="0.8"
+                  transform="rotate(-241) scale(2.7)" transform-origin="805px 455.5px">
+                <animateTransform attributeName="transform" type="rotate"
+                                  values="0 3 -32;360 3 -32;" dur="120s"
+                                  repeatCount="indefinite" additive="sum"/>
+            </rect>
+            <rect x="748" y="363.5" width="120" height="120" rx="24" ry="24" fill="url(#vortex-gradient)" fill-opacity="0.96"
+                  transform="rotate(-142) scale(1.64)" transform-origin="805px 455.5px">
+                <animateTransform attributeName="transform" type="rotate"
+                                  values="0 3 -32;360 3 -32;" dur="120s"
+                                  repeatCount="indefinite" additive="sum"/>
+            </rect>
+        </g>
+    </svg>
 
-  <nav>
-    <div class="nav-container">
-      <a href="#" class="logo">
-        <div class="logo-icon">DF</div>
-        DFHub TestStand
-      </a>
-      <div class="nav-links">
-        <a href="#features">Возможности</a>
-        <a href="#about">О проекте</a>
-        <a href="#contact">Контакты</a>
-      </div>
-      <div class="nav-cta">
-        <a href="#features" class="btn btn-primary">Начать</a>
-      </div>
-    </div>
-  </nav>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">Jetsify</a>
+                <ul class="nav-links">
+                    <li><a href="#home">Главная</a></li>
+                    <li><a href="#products">Товары</a></li>
+                    <li><a href="#categories">Категории</a></li>
+                    <li><a href="#contact">Контакты</a></li>
+                </ul>
+                <button class="cart-btn">🛒 Корзина (0)</button>
+            </nav>
+        </div>
+    </header>
 
-  <section class="hero">
-    <div class="hero-badge">
-      <span class="badge-icon"></span>
-      Лаборатория безопасности
-    </div>
-    <h1>DFHub TestStand</h1>
-    <p class="hero-subtitle">
-      Это пространство для тестирования, исследований и практики в области информационной безопасности.  
-      Здесь мы проверяем, исследуем и развиваем софт.
-    </p>
-    <div class="hero-actions">
-      <a href="#features" class="btn btn-primary">Что можно делать</a>
-      <a href="#about" class="btn btn-secondary">Узнать больше</a>
-    </div>
-  </section>
-
-  <section class="products" id="features">
-    <div class="section-header">
-      <h2 class="section-title">Что доступно на TestStand</h2>
-      <p class="section-subtitle">Мы создали среду, где можно безопасно проверять и использовать различные инструменты.</p>
-    </div>
-    <div class="products-grid">
-      <div class="product-card animate">
-        <div class="product-icon security">🔐</div>
-        <h3 class="product-title">Пентест</h3>
-        <p class="product-description">
-          Проведение аудита безопасности, поиск уязвимостей и анализ систем.
-        </p>
-      </div>
-      <div class="product-card animate">
-        <div class="product-icon privacy">💻</div>
-        <h3 class="product-title">Тестирование ПО</h3>
-        <p class="product-description">
-          Запуск и проверка программ для взлома в безопасной среде без риска.
-        </p>
-      </div>
-      <div class="product-card animate">
-        <div class="product-icon communications">🌐</div>
-        <h3 class="product-title">Вебкраулинг</h3>
-        <p class="product-description">
-          Сканирование и индексация сайтов для анализа их структуры и работы.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section class="about" id="about">
-    <div class="about-container">
-      <div class="about-content">
-        <h2>О DFHub TestStand</h2>
-        <p>
-          TestStand — это площадка для исследователей, пентестеров и разработчиков.  
-          Мы предоставляем безопасное пространство для проверки и анализа инструментов, связанных с кибербезопасностью.  
-        </p>
-        <p>
-          Здесь можно проводить эксперименты, тренироваться в поиске уязвимостей и улучшать свои навыки в области информационной безопасности.
-        </p>
-      </div>
-                  <div class="founder-card">
-                <div class="founder-avatar">
-		   <img src="deza.jpg" alt="деза" />
-		</div>
-                <h3 class="founder-name">деза</h3>
-                <p class="founder-role">Основатель и CEO</p>
-                <p style="color: var(--jb-text-secondary); font-size: 14px;">
-                    Эксперт в области кибербезопасности, кодинга, профессиональной защиты<br>
-                    с 6 летним опытом
-                </p>
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Добро пожаловать в Jetsify</h1>
+                <p>Ваш надежный партнер в мире современных технологий</p>
+                <button class="cta-btn">Смотреть товары</button>
             </div>
-    </div>
-  </section>
+        </div>
+    </section>
 
-  <section class="contact" id="contact">
-    <div class="section-header">
-      <h2 class="section-title">Контакты</h2>
-      <p class="section-subtitle">Свяжитесь с нами по любым вопросам о TestStand.</p>
-    </div>
-    <div class="contact-grid">
-      <div class="contact-card">
-        <div class="contact-icon email">✉️</div>
-        <h3>Email</h3>
-        <p>developerdeza@gmail.com</p>
-      </div>
-      <div class="contact-card">
-        <div class="contact-icon secure">🔒</div>
-        <h3>Telegram</h3>
-        <p>@dfhubacademy</p>
-      </div>
-      <div class="contact-card">
-        <div class="contact-icon support">💬</div>
-        <h3>Поддержка</h3>
-        <p>@fuckdeza</p>
-      </div>
-    </div>
-  </section>
+    <section class="categories" id="categories">
+        <div class="container">
+            <h2 class="section-title">Категории товаров</h2>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-icon">📱</div>
+                    <h3>Смартфоны</h3>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">💻</div>
+                    <h3>Ноутбуки</h3>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">🎧</div>
+                    <h3>Аудио</h3>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">📺</div>
+                    <h3>ТВ и медиа</h3>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">⚡</div>
+                    <h3>Аксессуары</h3>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <footer>
-    <div class="footer-container">
-      <div class="footer-logo">
-        <div class="logo-icon">DF</div>
-        DFHub TestStand
-      </div>
-      <div class="footer-links">
-        <a href="#features">Возможности</a>
-        <a href="#about">О проекте</a>
-        <a href="#contact">Контакты</a>
-      </div>
-      <div class="footer-bottom">
-        © 2025 DFHub. Все права защищены.
-      </div>
-    </div>
-  </footer>
+    <section class="products" id="products">
+        <div class="container">
+            <h2 class="section-title">Популярные товары</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">📱</div>
+                    <h3 class="product-title">iPhone 15 Pro</h3>
+                    <p class="product-price">₴54,999</p>
+                    <button class="buy-btn">Купить</button>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">💻</div>
+                    <h3 class="product-title">MacBook Air M3</h3>
+                    <p class="product-price">₴69,999</p>
+                    <button class="buy-btn">Купить</button>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">🎧</div>
+                    <h3 class="product-title">AirPods Pro</h3>
+                    <p class="product-price">₴12,999</p>
+                    <button class="buy-btn">Купить</button>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">⌚</div>
+                    <h3 class="product-title">Apple Watch Series 9</h3>
+                    <p class="product-price">₴21,999</p>
+                    <button class="buy-btn">Купить</button>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">📺</div>
+                    <h3 class="product-title">Samsung QLED 65"</h3>
+                    <p class="product-price">₴89,999</p>
+                    <button class="buy-btn">Купить</button>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">🎮</div>
+                    <h3 class="product-title">PlayStation 5</h3>
+                    <p class="product-price">₴24,999</p>
+                    <button class="buy-btn">Купить</button>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>О нас</h3>
+                    <a href="#">История компании</a>
+                    <a href="#">Наша команда</a>
+                    <a href="#">Карьера</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Покупателям</h3>
+                    <a href="#">Доставка</a>
+                    <a href="#">Оплата</a>
+                    <a href="#">Возврат</a>
+                    <a href="#">Гарантия</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <a href="#">+38 (044) 123-45-67</a>
+                    <a href="#">info@jetsify.ua</a>
+                    <a href="#">Киев, ул. Технологическая, 1</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Jetsify. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        let cartCount = 0;
+        const cartBtn = document.querySelector('.cart-btn');
+        const buyBtns = document.querySelectorAll('.buy-btn');
+
+        buyBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                cartCount++;
+                cartBtn.textContent = `🛒 Корзина (${cartCount})`;
+                
+                this.style.transform = 'scale(0.95)';
+                this.textContent = 'Добавлено!';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                    this.textContent = 'Купить';
+                }, 300);
+            });
+        });
+        document.querySelector('.cta-btn').addEventListener('click', function() {
+            document.querySelector('#products').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+
+        document.querySelectorAll('.category-card').forEach(card => {
+            card.addEventListener('click', function() {
+                document.querySelector('#products').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
