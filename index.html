@@ -1,729 +1,155 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jetsify</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #302f2c;
-            color: #efede3;
-            line-height: 1.6;
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        .background-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            opacity: 0.15;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        header {
-            background-color: #302f2c;
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid rgba(239, 237, 227, 0.1);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #efede3;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo:hover {
-            transform: scale(1.05);
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: #efede3;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-        }
-
-        .nav-links a:hover {
-            background-color: #efede3;
-            color: #302f2c;
-            transform: translateY(-2px);
-        }
-
-        .access-btn {
-            background-color: #efede3;
-            color: #302f2c;
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .access-btn:hover {
-            transform: translateY(-3px);
-            background-color: #f5f3eb;
-        }
-
-        .stars-icon {
-            color: #ffd700;
-        }
-        .hero {
-            background-color: #302f2c;
-            padding: 4rem 0;
-            text-align: center;
-            position: relative;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            color: #efede3;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-
-        .cta-btn {
-            background-color: #efede3;
-            color: #302f2c;
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 30px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .cta-btn:hover {
-            transform: translateY(-3px);
-            background-color: #f5f3eb;
-        }
-
-        .services {
-            padding: 4rem 0;
-            background-color: #302f2c;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #efede3;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .service-card {
-            background: linear-gradient(145deg, #3d3a36, #2a2926);
-            border-radius: 15px;
-            padding: 1.5rem;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(239, 237, 227, 0.1);
-            text-align: center;
-        }
-
-        .service-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(239, 237, 227, 0.3);
-        }
-
-        .service-icon {
-            width: 100%;
-            height: 120px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            color: #efede3;
-            margin-bottom: 1rem;
-        }
-
-        .service-title {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-            color: #efede3;
-        }
-
-        .service-description {
-            font-size: 1rem;
-            color: #efede3;
-            opacity: 0.8;
-            margin-bottom: 1rem;
-        }
-
-        .service-price {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #ffd700;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .categories {
-            padding: 3rem 0;
-            background-color: #302f2c;
-        }
-
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .category-card {
-            background-color: #efede3;
-            color: #302f2c;
-            padding: 2rem 1rem;
-            border-radius: 15px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .category-card:hover {
-            transform: translateY(-5px) scale(1.05);
-            background-color: #f5f3eb;
-        }
-
-        .category-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .pricing {
-            padding: 4rem 0;
-            background-color: #302f2c;
-            text-align: center;
-        }
-
-        .pricing-card {
-            background: linear-gradient(145deg, #3d3a36, #2a2926);
-            border-radius: 20px;
-            padding: 3rem 2rem;
-            max-width: 400px;
-            margin: 0 auto;
-            border: 2px solid #ffd700;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .pricing-card::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, #ffd700, #ffed4e, #ffd700);
-            border-radius: 20px;
-            z-index: -1;
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes glow {
-            from { opacity: 0.5; }
-            to { opacity: 1; }
-        }
-
-        .pricing-title {
-            font-size: 2rem;
-            color: #efede3;
-            margin-bottom: 1rem;
-        }
-
-        .pricing-price {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #ffd700;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .pricing-period {
-            font-size: 1rem;
-            color: #efede3;
-            opacity: 0.8;
-            margin-bottom: 2rem;
-        }
-
-        .pricing-features {
-            list-style: none;
-            margin-bottom: 2rem;
-        }
-
-        .pricing-features li {
-            color: #efede3;
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .buy-btn {
-            width: 100%;
-            background-color: #ffd700;
-            color: #302f2c;
-            padding: 1rem;
-            border: none;
-            border-radius: 10px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .buy-btn:hover {
-            background-color: #ffed4e;
-            transform: translateY(-2px);
-        }
-
-        footer {
-            background-color: #1f1e1c;
-            padding: 3rem 0 1rem;
-            text-align: center;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-section h3 {
-            color: #efede3;
-            margin-bottom: 1rem;
-        }
-
-        .footer-section a {
-            color: #efede3;
-            text-decoration: none;
-            display: block;
-            margin-bottom: 0.5rem;
-            transition: color 0.3s ease;
-        }
-
-        .footer-section a:hover {
-            color: #f5f3eb;
-        }
-
-        .footer-bottom {
-            border-top: 1px solid #3d3a36;
-            padding-top: 1rem;
-            color: #efede3;
-            opacity: 0.8;
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .access-btn span {
-                display: none;
-            }
-        }
-    </style>
-</head>
-<body>
-    <svg class="background-animation" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" >
-        <defs>
-            <linearGradient id="vortex-gradient" gradientTransform="rotate(0.5)">
-                <stop offset="0.15" stop-color="#efede3"/>
-                <stop offset="0.67" stop-color="#d4d1c7" stop-opacity="0.9"/>
-                <stop offset="1" stop-color="#b8b5ab" stop-opacity="0.8"/>
-                <animateTransform attributeName="gradientTransform" type="rotate" values="0 0.5 0.5; -360 0.5 0.5;" dur="120s" repeatCount="indefinite"/>
-            </linearGradient>
-        </defs>
-        <g transform="translate(-10 230)">
-            <rect x="748" y="363.5" width="120" height="120" rx="24" ry="24" fill="url(#vortex-gradient)" fill-opacity="0.24"
-                  transform="rotate(-439) scale(6.8)" transform-origin="805px 455.5px">
-                <animateTransform attributeName="transform" type="rotate"
-                                  values="0 3 -32;360 3 -32;" dur="120s"
-                                  repeatCount="indefinite" additive="sum"/>
-            </rect>
-            <rect x="748" y="363.5" width="120" height="120" rx="24" ry="24" fill="url(#vortex-gradient)" fill-opacity="0.32"
-                  transform="rotate(-373) scale(5.2)" transform-origin="805px 455.5px">
-                <animateTransform attributeName="transform" type="rotate"
-                                  values="0 3 -32;360 3 -32;" dur="120s"
-                                  repeatCount="indefinite" additive="sum"/>
-            </rect>
-            <rect x="748" y="363.5" width="120" height="120" rx="24" ry="24" fill="url(#vortex-gradient)" fill-opacity="0.48"
-                  transform="rotate(-340) scale(4.44)" transform-origin="805px 455.5px">
-                <animateTransform attributeName="transform" type="rotate"
-                                  values="0 3 -32;360 3 -32;" dur="120s"
-                                  repeatCount="indefinite" additive="sum"/>
-            </rect>
-            <rect x="748" y="363.5" width="120" height="120" rx="24" ry="24" fill="url(#vortex-gradient)" fill-opacity="0.64"
-                  transform="rotate(-307) scale(3.76)" transform-origin="805px 455.5px">
-                <animateTransform attributeName="transform" type="rotate"
-                                  values="0 3 -32;360 3 -32;" dur="120s"
-                                  repeatCount="indefinite" additive="sum"/>
-            </rect>
-            <rect x="748" y="363.5" width="120" height="120" rx="24" ry="24" fill="url(#vortex-gradient)" fill-opacity="0.8"
-                  transform="rotate(-241) scale(2.7)" transform-origin="805px 455.5px">
-                <animateTransform attributeName="transform" type="rotate"
-                                  values="0 3 -32;360 3 -32;" dur="120s"
-                                  repeatCount="indefinite" additive="sum"/>
-            </rect>
-            <rect x="748" y="363.5" width="120" height="120" rx="24" ry="24" fill="url(#vortex-gradient)" fill-opacity="0.96"
-                  transform="rotate(-142) scale(1.64)" transform-origin="805px 455.5px">
-                <animateTransform attributeName="transform" type="rotate"
-                                  values="0 3 -32;360 3 -32;" dur="120s"
-                                  repeatCount="indefinite" additive="sum"/>
-            </rect>
-        </g>
-    </svg>
-
-    <header>
-        <div class="container">
-            <nav>
-                <a href="#" class="logo">
-                    Jetsify
-                </a>
-                <ul class="nav-links">
-                    <li><a href="#home">Главная</a></li>
-                    <li><a href="#services">Услуги</a></li>
-                    <li><a href="#categories">Категории</a></li>
-                    <li><a href="#pricing">Тарифы</a></li>
-                    <li><a href="#contact">Контакты</a></li>
-                </ul>
-                <button class="access-btn">
-                    <i class="fas fa-star stars-icon"></i>
-                    <span>Получить доступ</span>
-                </button>
-            </nav>
-        </div>
-    </header>
-
-    <section class="hero" id="home">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Добро пожаловать в Jetsify</h1>
-                <p>Ваш надежный источник эксклюзивной информации из закрытых баз данных</p>
-                <button class="cta-btn">
-                    <i class="fas fa-rocket"></i>
-                    Начать поиск
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <section class="categories" id="categories">
-        <div class="container">
-            <h2 class="section-title">Категории информации</h2>
-            <div class="categories-grid">
-                <div class="category-card">
-                    <div class="category-icon">
-                        <i class="fas fa-user-tie"></i>
-                    </div>
-                    <h3>Персональные данные</h3>
-                </div>
-                <div class="category-card">
-                    <div class="category-icon">
-                        <i class="fas fa-building"></i>
-                    </div>
-                    <h3>Корпоративная информация</h3>
-                </div>
-                <div class="category-card">
-                    <div class="category-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Финансовые данные</h3>
-                </div>
-                <div class="category-card">
-                    <div class="category-icon">
-                        <i class="fas fa-globe"></i>
-                    </div>
-                    <h3>Международные базы</h3>
-                </div>
-                <div class="category-card">
-                    <div class="category-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Безопасность</h3>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="services" id="services">
-        <div class="container">
-            <h2 class="section-title">Наши услуги</h2>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-search-plus"></i>
-                    </div>
-                    <h3 class="service-title">Глубокий поиск</h3>
-                    <p class="service-description">Поиск информации в закрытых базах данных с высокой точностью</p>
-                    <div class="service-price">
-                        <i class="fas fa-star stars-icon"></i>
-                        Включено в подписку
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-file-alt"></i>
-                    </div>
-                    <h3 class="service-title">Детальные отчеты</h3>
-                    <p class="service-description">Полные отчеты с структурированной информацией</p>
-                    <div class="service-price">
-                        <i class="fas fa-star stars-icon"></i>
-                        Включено в подписку
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <h3 class="service-title">Быстрый доступ</h3>
-                    <p class="service-description">Мгновенный доступ к результатам поиска 24/7</p>
-                    <div class="service-price">
-                        <i class="fas fa-star stars-icon"></i>
-                        Включено в подписку
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-lock"></i>
-                    </div>
-                    <h3 class="service-title">Конфиденциальность</h3>
-                    <p class="service-description">Полная анонимность и защита ваших запросов</p>
-                    <div class="service-price">
-                        <i class="fas fa-star stars-icon"></i>
-                        Включено в подписку
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <h3 class="service-title">Множественные источники</h3>
-                    <p class="service-description">Доступ к сотням закрытых баз данных</p>
-                    <div class="service-price">
-                        <i class="fas fa-star stars-icon"></i>
-                        Включено в подписку
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-headset"></i>
-                    </div>
-                    <h3 class="service-title">Поддержка 24/7</h3>
-                    <p class="service-description">Круглосуточная техническая поддержка</p>
-                    <div class="service-price">
-                        <i class="fas fa-star stars-icon"></i>
-                        Включено в подписку
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="pricing" id="pricing">
-        <div class="container">
-            <h2 class="section-title">Тарифный план</h2>
-            <div class="pricing-card">
-                <h3 class="pricing-title">Недельный доступ</h3>
-                <div class="pricing-price">
-                    <i class="fas fa-star stars-icon"></i>
-                    100
-                </div>
-                <p class="pricing-period">Telegram Stars на 7 дней</p>
-                <ul class="pricing-features">
-                    <li><i class="fas fa-check" style="color: #4CAF50;"></i> Безлимитный поиск</li>
-                    <li><i class="fas fa-check" style="color: #4CAF50;"></i> Все базы данных</li>
-                    <li><i class="fas fa-check" style="color: #4CAF50;"></i> Детальные отчеты</li>
-                    <li><i class="fas fa-check" style="color: #4CAF50;"></i> Поддержка 24/7</li>
-                    <li><i class="fas fa-check" style="color: #4CAF50;"></i> Полная анонимность</li>
-                </ul>
-                <button class="buy-btn">
-                    <i class="fas fa-star stars-icon"></i>
-                    Оплатить Stars
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <footer id="contact">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>О нас</h3>
-                    <a href="#">История компании</a>
-                    <a href="#">Наша команда</a>
-                    <a href="#">Карьера</a>
-                    <a href="#">Конфиденциальность</a>
-                </div>
-                <div class="footer-section">
-                    <h3>Клиентам</h3>
-                    <a href="#">Как это работает</a>
-                    <a href="#">Способы оплаты</a>
-                    <a href="#">Часто задаваемые вопросы</a>
-                    <a href="#">Пользовательское соглашение</a>
-                </div>
-                <div class="footer-section">
-                    <h3>Контакты</h3>
-                    <a href="#"><i class="fab fa-telegram"></i> @ehflee</a>
-                    <a href="#">developerdeza@gmail.com</a>
-                    <a href="#"><i class="fas fa-globe"></i> deox.fun</a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 jetsify. Все права защищены.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-
-        const accessBtn = document.querySelector('.access-btn');
-        const buyBtn = document.querySelector('.buy-btn');
-
-        function handlePurchase() {
-            this.style.transform = 'scale(0.95)';
-            this.innerHTML = '<i class="fas fa-check"></i> Обрабатывается...';
-            
-            setTimeout(() => {
-                this.style.transform = 'scale(1)';
-                this.innerHTML = '<i class="fas fa-star"></i> Оплатить Stars';
-                alert('Переадресация в Telegram для оплаты Stars...');
-            }, 1000);
-        }
-
-        accessBtn.addEventListener('click', handlePurchase);
-        buyBtn.addEventListener('click', handlePurchase);
-
-        document.querySelector('.cta-btn').addEventListener('click', function() {
-            document.querySelector('#pricing').scrollIntoView({
-                behavior: 'smooth'
-            });
-        });
-
-        document.querySelectorAll('.category-card').forEach(card => {
-            card.addEventListener('click', function() {
-                document.querySelector('#services').scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        document.querySelectorAll('.service-card').forEach(card => {
-            card.addEventListener('click', function() {
-                document.querySelector('#pricing').scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        document.querySelectorAll('.stars-icon').forEach(star => {
-            star.addEventListener('mouseover', function() {
-                this.style.animation = 'pulse 0.5s infinite alternate';
-            });
-            
-            star.addEventListener('mouseout', function() {
-                this.style.animation = '';
-            });
-        });
-
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes pulse {
-                from { transform: scale(1); }
-                to { transform: scale(1.1); }
-            }
-        `;
-        document.head.appendChild(style);
-    </script>
-</body>
-</html>
+<!DOCTYPE html><html lang="en-US" dir="ltr" class="h-full" data-applied-theme="system" data-theme="system"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- Локальные модули -->
+<link rel="modulepreload" href="./assets/js/chunk-SKNKB5VI-CPQ7QJqX.js"/>
+<link rel="modulepreload" href="./assets/js/root-BjlbmSm_.js"/>
+<link rel="modulepreload" href="./assets/js/root-MR4TGbcn.js"/>
+<link rel="modulepreload" href="./assets/js/chunk-THKAHLEP-BkbSolh1.js"/>
+<link rel="modulepreload" href="./assets/js/index-lBsTSuoM.js"/>
+<link rel="modulepreload" href="./assets/js/Info.es-Z3j2h2X5.js"/>
+<link rel="modulepreload" href="./assets/js/tooltip-WRze5UTK.js"/>
+<link rel="modulepreload" href="./assets/js/index-ChLdeeIH.js"/>
+<link rel="modulepreload" href="./assets/js/download-CrR0DHLg.js"/>
+<link rel="modulepreload" href="./assets/js/ngrok-B_27Hf5q.js"/>
+<link rel="modulepreload" href="./assets/js/types-B6W4J4RY.js"/>
+<link rel="modulepreload" href="./assets/js/Combination-DC41UM5x.js"/>
+<link rel="modulepreload" href="./assets/js/download._platform-CKTopT0Z.js"/>
+<link rel="modulepreload" href="./assets/js/popover-DXy1KmCE.js"/>
+
+<!-- Локальные шрифты -->
+<link rel="preload" href="./assets/fonts/euclid-square/EuclidSquare-Regular-WebS.woff" as="font" type="font/woff" crossorigin="anonymous"/>
+<link rel="preload" href="./assets/fonts/euclid-square/EuclidSquare-RegularItalic-WebS.woff" as="font" type="font/woff" crossorigin="anonymous"/>
+<link rel="preload" href="./assets/fonts/euclid-square/EuclidSquare-Medium-WebS.woff" as="font" type="font/woff" crossorigin="anonymous"/>
+<link rel="preload" href="./assets/fonts/euclid-square/EuclidSquare-Semibold-WebS.woff" as="font" type="font/woff" crossorigin="anonymous"/>
+<link rel="preload" href="./assets/fonts/euclid-square/EuclidSquare-MediumItalic-WebS.woff" as="font" type="font/woff" crossorigin="anonymous"/>
+<link rel="preload" href="./assets/fonts/ibm-plex-mono/IBMPlexMono-Text.woff" as="font" type="font/woff" crossorigin="anonymous"/>
+<link rel="preload" href="./assets/fonts/ibm-plex-mono/IBMPlexMono-TextItalic.woff" as="font" type="font/woff" crossorigin="anonymous"/>
+<link rel="preload" href="./assets/fonts/ibm-plex-mono/IBMPlexMono-SemiBold.woff" as="font" type="font/woff" crossorigin="anonymous"/>
+<link rel="preload" href="./assets/fonts/ibm-plex-mono/IBMPlexMono-SemiBoldItalic.woff" as="font" type="font/woff" crossorigin="anonymous"/>
+
+<meta name="theme-color" content="#4a3066"/>
+<meta name="robots" content="noindex, nofollow"/>
+<title>Download jetsify</title>
+
+<script>
+(function() {
+	const themes = ["system","light","dark","light-high-contrast","dark-high-contrast"];
+	const isTheme = (value) => typeof value === "string" && themes.includes(value);
+	const fallbackTheme = "system" ?? "system";
+	let maybeStoredTheme = null;
+	try {
+		maybeStoredTheme = "localStorage" in window ? window.localStorage.getItem("mantle-ui-theme") : null;
+	} catch (_) {}
+	const hasStoredTheme = isTheme(maybeStoredTheme);
+	if (!hasStoredTheme && "localStorage" in window) {
+		try {
+			window.localStorage.setItem("mantle-ui-theme", fallbackTheme);
+		} catch (_) {}
+	}
+	const themePreference = hasStoredTheme ? maybeStoredTheme : fallbackTheme;
+	const prefersDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+	const prefersHighContrast = window.matchMedia("(prefers-contrast: more)").matches;
+	let initialTheme = themePreference;
+	if (initialTheme === "system") {
+		if (prefersHighContrast) {
+			initialTheme = prefersDarkMode ? "dark-high-contrast" : "light-high-contrast";
+		} else {
+			initialTheme = prefersDarkMode ? "dark" : "light";
+		}
+	}
+	const htmlElement = document.documentElement;
+	htmlElement.classList.remove(...themes);
+	htmlElement.classList.add(initialTheme);
+	htmlElement.dataset.appliedTheme = initialTheme;
+	htmlElement.dataset.theme = themePreference;
+})();
+</script>
+
+<!-- Локальный CSS -->
+<link rel="stylesheet" href="./assets/css/root-DxC3F5dG.css"/>
+
+</head><body class="bg-base h-dvh isolate">
+<section aria-label="Notifications alt+T" tabindex="-1" aria-live="polite" aria-relevant="additions text" aria-atomic="false"></section>
+<div class="relative overflow-hidden text-sm text-body">
+<div class="min-h-screen pointer-events-auto md:pb-20">
+<a class="sr-only" href="/download#main" data-discover="true">Skip to main content</a>
+<header class="bg-[#211B34] high-contrast:bg-[#000000] dark-high-contrast:bg-[#000000] overflow-hidden relative">
+<div class="mx-auto absolute inset-0">
+<div class="relative overflow-hidden h-[40rem] opacity-40">
+<div class="size-[45rem] scale-50 xs:scale-75 sm:scale-100 bg-radial from-[oklch(0.656_0.241_354.308)] to-70% absolute left-[calc(max(33vw,_50vw_-_18rem)_-_22.5rem)] animate-[squish_6s_alternate_infinite] -top-[22.5rem] mix-blend-overlay"></div>
+<div class="size-[60rem] scale-50 xs:scale-75 sm:scale-100 bg-radial from-[oklch(0.585_0.233_277.117)] to-70% absolute -top-[30rem] animate-[position_8s_4s_alternate_infinite] left-[calc(min(60vw,_50vw_+_18rem)_-_30rem)] mix-blend-overlay"></div>
+</div>
+</div>
+<div class="max-w-5xl px-4 pt-8 md:pb-40 pb-8 text-[#ffffff] md:mx-auto relative">
+<div class="flex items-center justify-between">
+<a href="https://jetsify.pp.ua/" class="inline-flex">
+<span class="sr-only">jetsify logo</span>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <path d="M30,70 a10,10 0 1,0 20,0 v-40 h20 v20" fill="white"/>
+</svg>
+</a>
+<button type="button" id="theme-button" aria-haspopup="menu" aria-expanded="false" data-state="closed" class="text-on-filled ring-focus-accent hover:bg-filled-accent-hover active:bg-filled-accent-active flex shrink-0 cursor-pointer items-center justify-center rounded-full p-1.5 focus:outline-hidden focus-visible:ring-4 dark-high-contrast:text-black dark-high-contrast:hover:text-white size-9">
+<span class="sr-only">Change Theme</span>
+<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 256 256" class="size-5">
+<path d="M120,40V16a8,8,0,0,1,16,0V40a8,8,0,0,1-16,0Zm72,88a64,64,0,1,1-64-64A64.07,64.07,0,0,1,192,128Zm-16,0a48,48,0,1,0-48,48A48.05,48.05,0,0,0,176,128ZM58.34,69.66A8,8,0,0,0,69.66,58.34l-16-16A8,8,0,0,0,42.34,53.66Zm0,116.68-16,16a8,8,0,0,0,11.32,11.32l16-16a8,8,0,0,0-11.32-11.32ZM192,72a8,8,0,0,0,5.66-2.34l16-16a8,8,0,0,0-11.32-11.32l-16,16A8,8,0,0,0,192,72Zm5.66,114.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32-11.32ZM48,128a8,8,0,0,0-8-8H16a8,8,0,0,0,0,16H40A8,8,0,0,0,48,128Zm80,80a8,8,0,0,0-8,8v24a8,8,0,0,0,16,0V216A8,8,0,0,0,128,208Zm112-88H216a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"></path>
+</svg>
+</button>
+</div>
+<h1 class="mt-10 text-4xl leading-none md:mt-20 sm:text-[3.8125rem] text-center">Jetsify Client</h1>
+<h2 class="text-center text-sm sm:text-base text-[#ffffff]/80 max-w-2xs sm:max-w-sm mx-auto mt-2 sm:mt-4">jetsify is your app's front door—and the fastest way to put anything on the internet.</h2>
+</div>
+</header>
+
+<div class="mx-auto flex max-w-5xl gap-14 md:px-4">
+<nav class="text-muted mt-11 hidden min-w-44 shrink-0 text-sm md:block">
+<ul>
+<li class="text-strong mb-3 ml-2 text-xs font-medium uppercase tracking-wider">Agents</li>
+<li>
+<ul>
+<li><a class="ring-focus-accent flex items-center gap-1.5 rounded-md px-2 py-1 font-normal focus-visible:ring-4 focus:outline-hidden hover:bg-popover-hover text-muted hover:text-strong [&>svg]:text-body" href="https://jetsify.pp.ua/macos.html" data-discover="true">
+<svg viewBox="0 0 32 32" fill="currentColor" class="shrink-0 size-5">
+<path d="M16.21 8.05c-1.1 0-2.8-1.26-4.6-1.22a6.78 6.78 0 0 0-5.74 3.52c-2.46 4.29-.64 10.62 1.76 14.1 1.17 1.7 2.56 3.6 4.4 3.55 1.76-.08 2.42-1.15 4.56-1.15 2.12 0 2.72 1.15 4.59 1.1 1.9-.03 3.1-1.72 4.26-3.44a15.27 15.27 0 0 0 1.93-3.98 6.17 6.17 0 0 1-.73-10.99 6.5 6.5 0 0 0-5.09-2.77c-2.31-.18-4.26 1.28-5.34 1.28Zm3.92-3.58A6.15 6.15 0 0 0 21.57 0c-1.4.06-3.09.94-4.1 2.12A5.88 5.88 0 0 0 16 6.45c1.55.13 3.15-.8 4.12-1.98"></path>
+</svg>macOS</a></li>
+<li><a aria-current="page" class="ring-focus-accent flex items-center gap-1.5 rounded-md px-2 py-1 focus-visible:ring-4 focus:outline-hidden bg-filled-accent text-on-filled [&>svg]:text-on-filled font-medium" href="https://jetsify.pp.ua" data-discover="true">
+<svg viewBox="0 0 32 32" class="shrink-0 size-5">
+<path fill="currentColor" d="m4 7.32 9.8-1.34.01 9.46-9.8.06L4 7.32Z"></path>
+<path fill="currentColor" d="m15 5.8 13-1.9v11.42l-13 .1V5.81Z"></path>
+<path fill="currentColor" d="m13.8 16.53.01 9.47-9.8-1.35v-8.18l9.8.06Z"></path>
+<path fill="currentColor" d="M28 16.62v11.36l-13-1.83-.03-9.55 13.03.02Z"></path>
+</svg>Windows</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+
+<div class="min-w-0 flex-1 md:-mt-16">
+<main id="main">
+<div class="border-card bg-card relative border rounded-none border-x-0 shadow-2xl md:rounded-xl md:border-x">
+<div class="p-6 border-t border-card-muted first:border-t-0">
+
+<div class="flex mb-10 items-center gap-4">
+<div class="shrink-0 leading-none border-popover grid size-20 place-content-center rounded-xl border bg-gradient-to-b from-white to-gray-100 shadow-md dark:bg-gradient-to-t dark:from-gray-50 dark:to-gray-100">
+<svg viewBox="0 0 32 32" class="shrink-0 size-14">
+<path fill="#F8682C" d="m4 7.32 9.8-1.34.01 9.46-9.8.06L4 7.32Z"></path>
+<path fill="#91C300" d="m15 5.8 13-1.9v11.42l-13 .1V5.81Z"></path>
+<path fill="#00B4F1" d="m13.8 16.53.01 9.47-9.8-1.35v-8.18l9.8.06Z"></path>
+<path fill="#FFC300" d="M28 16.62v11.36l-13-1.83-.03-9.55 13.03.02Z"></path>
+</svg>
+</div>
+<div class="min-w-0 flex-1">
+<span class="inline-flex w-fit shrink-0 cursor-default items-center gap-1 rounded px-1.5 py-0.5 font-medium text-xs bg-neutral-500/20 text-neutral-700">Agent</span>
+<h2 class="text-strong text-3xl font-medium">Windows</h2>
+</div>
+</div>
+
+<h3 class="text-strong mb-5 text-xl font-medium">Installation</h3>
+
+<div class="space-y-4">
+<p>For the most secure experience, use the Jetsify Installer. This type of installation is fully supported by Windows, ensuring automatic updates and compatibility with app management tools.</p>
+<a href="/install_jt.exe" class="inline-flex items-center justify-center gap-1.5 whitespace-nowrap rounded-md focus:outline-hidden focus-visible:ring-4 disabled:cursor-default disabled:opacity-50 not-disabled:active:scale-[0.97] bg-filled-accent text-on-filled focus-visible:border-accent-600 focus-visible:ring-focus-accent not-disabled:hover:bg-filled-accent-hover not-disabled:active:bg-filled-accent-active h-9 border border-transparent px-3 text-sm font-medium pe-2.5">
+<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 256 256" class="shrink-0 size-5 order-last">
+<path d="M224,104a8,8,0,0,1-16,0V59.32l-66.33,66.34a8,8,0,0,1-11.32-11.32L196.68,48H152a8,8,0,0,1,0-16h64a8,8,0,0,1,8,8Zm-40,24a8,8,0,0,0-8,8v72H48V80h72a8,8,0,0,0,0-16H48A16,16,0,0,0,32,80V208a16,16,0,0,0,16,16H176a16,16,0,0,0,16-16V136A8,8,0,0,0,184,128Z"></path>
+</svg>Download Jetsify Client</a>
+</div>
+
+</div>
+</div>
